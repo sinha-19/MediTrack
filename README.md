@@ -4,6 +4,51 @@
 
 ---
 
+## 🗺️ Workflow Diagram
+
+```mermaid
+flowchart TD
+    Start([User Opens App])
+    Start --> Home[Home Page]
+    Home --> NavDash[Go to Dashboard]
+    Home --> NavAdd[Go to Add Medicine]
+
+    NavDash --> Dashboard[Dashboard Page]
+    NavAdd --> AddMed[Add Medicine Page]
+
+    Dashboard --> ShowMeds[Show Medicines]
+    Dashboard --> Progress[Show Progress Bar]
+    Dashboard --> StatusUpdate[Mark Taken or Skipped]
+    Dashboard --> EnableNotif{Enable Notifications?}
+    EnableNotif -- Yes --> NotifPerm[Request Notification Permission]
+    NotifPerm --> NotifOn[Notifications Enabled]
+    EnableNotif -- No --> Dashboard
+
+    AddMed --> SearchMed[Type Medicine Name]
+    SearchMed --> AutoComp[Autocomplete via FDA API]
+    AutoComp --> SelectMed[Select Medicine]
+    SelectMed --> FetchDetails[Fetch Medicine Details]
+    FetchDetails --> SetSchedule[Set Dose and Times]
+    SetSchedule --> SaveMed[Save Medicine]
+    SaveMed --> Dashboard
+
+    StatusUpdate --> SaveProgress[Save Progress]
+    SaveProgress --> Progress
+
+    NotifOn --> Remind[Show Notifications]
+    Remind --> StatusUpdate
+
+    Dashboard --> InstallPrompt{Install App?}
+    InstallPrompt -- Yes --> Install[Add to Home Screen]
+    InstallPrompt -- No --> Dashboard
+
+    Home --> Offline[Offline Support]
+    Home --> Privacy[No Account Needed]
+    AnyPage[User Navigates] --> Start
+```
+
+---
+
 ## 🔥 Why MediTrack?
 
 **MediTrack** is a privacy-first, user-friendly web app that helps you remember to take your medicines on time and track your intake—ideal for patients, elderly, caregivers, or anyone on a daily medicine schedule.  
